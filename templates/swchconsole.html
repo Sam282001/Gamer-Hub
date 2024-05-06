@@ -1,0 +1,100 @@
+{% extends 'base.html'%}
+
+{% block 'main' %}
+<title>The Switch Zone</title>
+{% load static %}
+
+<!-- The Switch Zone -->
+<div class="row mt-3">
+    <div class="col-md-12 d-flex flex-column align-items-center">
+        <h1>The <span style="color: #fe0f22;">Switch </span> Zone</h1>
+        <img src="{% static 'assets/images/nslogo.png' %}" width="50px" height="50px">
+        <h3 style="color: #fe0f22;">Switch and Play!</h3>
+    </div>
+</div>
+
+
+<!-- Switch Section Start -->
+
+<!-- Switch Banner -->
+<div class="row mt-2">
+    <div class="col-lg-12">
+        <a href="#">
+            <img src="{% static 'assets/images/switchbanner.png' %}" style="max-width: 100%;">
+        </a>
+    </div>
+</div>
+
+<!-- Filter Section -->
+<div class="container-fluid ms-3 me-3 mt-4">
+    <!-- Filter By Price -->
+    <div class="row">
+        <div class="col-md-12 d-flex flex-column">
+            <h1>Filter By <span style="color:#fe0f22;">Price.</span></h1>
+        </div>
+    </div>
+
+    <div class="row" id="filter-section">
+        <form action="/range#filter-section" method="GET">
+            <!-- Min Range -->
+            <div class="col-md-6 fltr">
+                <input type="hidden" name="template" value="swchconsole.html">
+                <span><label for="input1" class="form-label">Min Value</label></span>
+                <span><input type="number" name="min" class="form-control" id="input1"
+                        placeholder="Enter min amount"></span>
+            </div>
+
+            <!-- Max Range -->
+            <div class="col-md-6 fltr">
+                <label for="input2" class="form-label">Max Value</label>
+                <input type="number" name="max" class="form-control" id="input2" placeholder="Enter max amount">
+            </div>
+
+            <div class="col-md-2 me-0 mt-2 fltr">
+                <input type="submit" class="btn btn-light" name="search" id="search" value="submit">
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div class="container d-flex flex-column mt-4 ms-6">
+    <div class="row">
+        {% for x in consoles %}
+        {% if x.cat == 3 %}
+        <div class="col-md-3">
+            <div class="card" style="width: 16rem; text-align: center;">
+                <a href="/condets/{{x.id}}" style="text-decoration: none; color: black;">
+                    <img src="{{x.pimage.url}}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{x.name}}</h5>
+                        <h4>&#8377;{{x.price}}</h4>
+                    </div>
+                </a>
+                <div class="card-footer mt-0">
+                    <a href="/condets/{{x.id}}" class="btn btn-outline-light btn-dark cust-bg-dark w-100">See Details</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+    {% if show_reset_button %}
+    <div class="row mt-2">
+        <div class="col-md-12 d-flex flex-column align-items-center">
+            <a href="/switch#filter-section"><button class="btn btn-light">Reset</button></a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Switch Section End -->
+
+<!-- HR Start -->
+<br>
+<hr />
+<br>
+<!-- HR End -->
+
+{% endblock 'main' %}

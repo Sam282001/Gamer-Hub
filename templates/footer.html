@@ -1,0 +1,51 @@
+{% load static %}
+<!-- Footer Start -->
+<div class="row mt-5 ms-0 me-0 cust-bg-dark p-3 text-white m-2" id="footer">
+    
+    <!-- Col 1 - Address -->
+    <div class="col-md-4">
+        <h4><u>Contact Us:</u></h4>
+        <p>Gamer's Hub <br>500, Steller's lane, Shopping District,<br> Mumbai - 40001</p>
+        <p>gamerzhub@testmail.com</p>
+        <br>
+        <h4><a id="sclnks" href="https://www.facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
+        </h4>
+        <h4><a id="sclnks" href="https://www.instagram.com" target="_blank"><i class="bi bi-instagram"></i></a>
+        </h4>
+        <h4><a id="sclnks" href="https://www.twitter.com" target="_blank"><i class="bi bi-twitter"></i></a></h4>
+    </div>
+
+    <!-- Col 2 - Logo -->
+    <div class="col-md-4">
+        <img src="{% static 'assets/images/lgft.png' %}" alt="logo" width="70%">
+    </div>
+
+    <!-- Col 3 - Stay in touch -->
+    <div class="col-md-4">
+        <div class="d-flex mb-2 justify-content-center">
+            <h4><u>STAY IN TOUCH</u></h4>
+        </div>
+        <form action="#">
+            <p><label for="mail">Join Our Mailing List</label></li>
+            </p>
+            <p class="mt-2"><input type="email" name="mail" class="form-control" placeholder="Enter Your Email" width="100%"></p>
+            <div class="d-flex justify-content-center mt-3">
+                <p><input type="submit" class="btn btn-light"></p>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-12 d-flex justify-content-center mt-2">
+        <small>&copy;2024 Gamer's Hub - <a href="https://www.linkedin.com/in/sameer-maitre/" target="_blank" style="color: white;">By Sameer Maitre</a>
+    </div>
+</div>
+</div>
+<!-- End Footer -->
+<!-- JS Links -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/d67c581f6d.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

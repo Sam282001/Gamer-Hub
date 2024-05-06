@@ -1,0 +1,241 @@
+{% extends 'base.html'%}
+
+{% block 'main' %}
+<title>Buy Switch Games</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/carou.css' %}">
+<!-- carousel -->
+<div class="carousel">
+    <!-- list item -->
+    <div class="list">
+        <!-- Game 1 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/nscar1.png' %}">
+            <div class="content">
+                <div class="title">Zelda</div>
+                <div class="topic" style="color: black;">Tears Of Kingdom</div>
+                <div class="des">
+                    <!-- lorem 50 -->
+                    Embark on an epic journey in "The Legend of Zelda: Tears of the Kingdom," where ancient magic and celestial wonders intertwine. Explore breathtaking landscapes and unearth hidden truths in a Hyrule transformed, wielding the powers of creation to shape your destiny and restore the fragmented kingdom.
+                </div>
+                <div class="buttons">
+                    <button class="btn">Switch</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/nscar2.png' %}">
+            <div class="content">
+                <div class="title" style="color: black;">World <span style="color: white;">War</span></div>
+                <div class="topic" style="color: #fe0f22;">Z</div>
+                <div class="des">     
+                    Plunge into a heart-pounding cooperative shooter game set in a post-apocalyptic world where swarms of relentless zombies threaten the remnants of humanity. In "World War Z," team up and strategize with fellow survivors to defend against the overwhelming undead menace, utilizing a deadly arsenal and swift, tactical maneuvers to ensure your survival in the face of global extinction.
+                </div>
+                <div class="buttons">
+                    <button class="btn">Switch</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 3 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/nscar3.png' %}">
+            <div class="content">
+                <div class="title">Tomb Raider </div>
+                <div class="topic">Remastered</div>
+                <div class="des">
+                    Embark on a daring expedition in "Tomb Raider Remastered," where ancient secrets and supernatural mysteries await. Journey with Lara Croft through beautifully treacherous landscapes, from dense jungles to underwater caverns, in this iconic action-adventure that combines challenging puzzles, heart-stopping combat, and breathtaking exploration. Rediscover the legend in stunning modern graphics and enhanced gameplay mechanics.
+                </div>
+                <div class="buttons">
+                    <button class="btn">Switch</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 4 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/nscar4.png' %}">
+            <div class="content">
+                <div class="title">Prince Of Persia</div>
+                <div class="topic" style="color: brown;">Lost Crown</div>
+                <div class="des">
+                    Dash into a stylish and thrilling action-adventure platformer game set in a mythological Persian world where the boundaries of time and space are yours to manipulate.
+                </div>
+                <div class="buttons">
+                    <button class="btn">Switch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- list thumnail -->
+    <div class="thumbnail">
+        <!-- Game 1 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/nscar1.png' %}">
+            <div class="content">
+                <div class="title">
+                    Rise Of The Ronin
+                </div>
+                <div class="description">
+                    Switch
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/nscar2.png' %}">
+            <div class="content">
+                <div class="title">
+                    World War Z
+                </div>
+                <div class="description">
+                    Switch
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 3  -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/nscar3.png' %}">
+            <div class="content">
+                <div class="title">
+                    Tomb Raider Remastered
+                </div>
+                <div class="description">
+                    Switch
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 4 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/nscar4.png' %}">
+            <div class="content">
+                <div class="title">
+                    Prince Of Persia
+                </div>
+                <div class="description">
+                    Switch
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- next prev -->
+
+    <div class="arrows">
+        <button id="prev"><</button>
+        <button id="next">></button>
+    </div>
+    <!-- time running -->
+    <div class="time"></div>
+</div>
+
+<div class="container mt-5">
+    <!-- Favourite Consoles -->
+    <div class="row">
+      <div class="col-md-12 d-flex flex-column">
+        <h1>Gamer's Favourites. <span style="color: #fe0f22;">BestSellers.</span></h1>
+      </div>
+    </div>
+  
+    <!-- Cards -->
+    <div class="scrolling-wrapper mt-5">
+      <div class="card-wrapper">
+        {% for x in trgames %}
+        {% if x.pltfrm == 3 %}
+        <!-- Card 1 -->
+        <div class="card">
+          <a href="/gamedets/{{x.id}}" style="text-decoration: none; color: black;">
+            <img src="{{x.gimage.url}}" style="max-width: 100%;" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">&#8377;{{x.price}}</h5>
+            </div>
+          </a>
+          <div class="card-footer">
+            <a href="/gamedets/{{x.id}}" class="btn btn-outline-light btn-dark cust-bg-dark w-100">See Details</a>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+  
+  
+      </div>
+    </div>
+</div>
+
+<!-- All Games Section -->
+<div class="container-fluid ms-3 me-3 mt-5">
+    <!-- All Games -->
+    <div class="row">
+        <div class="col-md-12 d-flex flex-column align-items-center">
+            <h1>All <span style="color: #fe0f22;">Games</span></h3>
+        </div>
+    </div>
+    <!-- Filter By Price -->
+    <div class="row">
+        <div class="col-md-12 d-flex flex-column">
+            <h3>Filter By <span style="color: #fe0f22;">Price.</span></h3>
+        </div>
+    </div>
+
+    <div class="row" id="filter-section">
+        <form action="/range#filter-section" method="GET">
+            <!-- Min Range -->
+            <div class="col-md-6 fltr">
+                <input type="hidden" name="template" value="nsgames.html">
+                <span><label for="input1" class="form-label">Min Value</label></span>
+                <span><input type="number" name="min" class="form-control" id="input1"
+                        placeholder="Enter min amount"></span>
+            </div>
+
+            <!-- Max Range -->
+            <div class="col-md-6 fltr">
+                <label for="input2" class="form-label">Max Value</label>
+                <input type="number" name="max" class="form-control" id="input2" placeholder="Enter max amount">
+            </div>
+
+            <div class="col-md-2 me-0 mt-2 fltr">
+                <input type="submit" class="btn btn-light" name="search" id="search" value="submit">
+            </div>
+        </form>
+
+    </div>
+
+
+    <div class="container d-flex flex-column mt-4 ms-6">
+        <div class="row">
+            {% for x in games %}
+            {% if x.pltfrm == 3 %}
+            <div class="col-md-3">
+                <div class="card" style="width: 16rem; text-align: center;">
+                    <a href="/gamedets/{{x.id}}" style="text-decoration: none; color: black;">
+                        <img src="{{x.gimage.url}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{x.title}}</h5>
+                            <h4>&#8377;{{x.price}}</h4>
+                        </div>
+                    </a>
+                    <div class="card-footer mt-0">
+                        <a href="/gamedets/{{x.id}}" class="btn btn-outline-light btn-dark cust-bg-dark w-100">See Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+    {% if show_reset_button %}
+    <div class="row mt-2">
+        <div class="col-md-12 d-flex flex-column align-items-center">
+            <a href="/nsgames#filter-section"><button class="btn btn-light">Reset</button></a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock 'main' %}

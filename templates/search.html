@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block 'main' %}
+<title>Search Results</title>
+<style>
+    h6 {
+        color: white;
+    }
+</style>
+{% load static %}
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-12 d-flex flex-column align-items-center">
+            <h1>Search Results For :</h1>
+            <p>{{ query }}</p>
+            <br>
+            {% if allgames|length < 1 and allconsole|length < 1 %}
+            <h4>No Search Results</h4>
+            <br>
+            <h6>Your Search: {{ query }} did not match any documents.</h6>
+            <br>
+            <h6>Try a different keyword!</h6>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        {% for x in allgames %}
+        <div class="col-md-3 mt-3">
+            <div class="card" style="width: 16rem; text-align: center;">
+                <a href="/gamedets/{{x.id}}" style="text-decoration: none; color: black;">
+                    <img src="{{x.gimage.url}}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{x.title}}</h5>
+                        <h4>&#8377;{{x.price}}</h4>
+                        <br>
+                        {% if x.pltfrm == 1 %}
+                        <h5 class="btn btn-primary btn-sm">PS4/PS5</h5>
+                        {% elif x.pltfrm == 2 %}
+                        <h5 class="btn btn-primary btn-sm">Xbox One/S</h5>
+                        {% elif x.pltfrm == 3 %}
+                        <h5 class="btn btn-primary btn-sm">Switch</h5>
+                        {% else %}
+                        <h5 class="btn btn-primary btn-sm">PC</h5>
+                        {% endif %}
+                        <br>
+                    </div>
+                </a>
+                <div class="card-footer mt-0">
+                    <a href="/gamedets/{{x.id}}" class="btn btn-outline-light btn-dark cust-bg-dark w-100">See Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for x in allconsole %}
+        <div class="col-md-3 mt-3">
+            <div class="card" style="width: 16rem; text-align: center;">
+                <a href="/condets/{{x.id}}" style="text-decoration: none; color: black;">
+                    <img src="{{x.pimage.url}}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{x.name}}</h5>
+                        <h4>&#8377;{{x.price}}</h4>
+                    </div>
+                </a>
+                <div class="card-footer mt-0">
+                    <a href="/condets/{{x.id}}" class="btn btn-outline-light btn-dark cust-bg-dark w-100">See Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock 'main' %}

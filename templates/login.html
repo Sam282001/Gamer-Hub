@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <!-- Bootstrap Icon CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "assets/images/bg12.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            height: 100%;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid mt-3">
+        <!-- Logo -->
+        <div class="row">
+            <div class="col-md-12 d-flex flex-column align-items-center">
+                <a href="/home"><img src="{% static 'assets/images/logo.png' %}" width="400px" height="150px"></a>
+            </div>
+        </div>
+
+        <!-- Login Box -->
+        <div class="row mt-4">
+            <div class="col-md-4 shadow mt-5 p-5 mx-auto" style="border: 2px solid white; background-color: black;">
+                <h2 class="text-center">Login</h2>
+                {% if errmsg %}
+                <div class="alert alert-danger">
+                    {{errmsg}}
+                </div>
+                {% endif %}
+                <form action="/login" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="input1" class="fom-label">Username:</label>
+                        <input type="email" name="uname" class="form-control" id="input1"
+                            placeholder="Enter username/email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="input2" class="fom-label">Password:</label>
+                        <input type="password" name="upass" class="form-control" id="input2"
+                            placeholder="Enter password">
+                    </div>
+                    <div class="mb-3 text-center">
+                        <input type="submit" class="btn btn-light" value="Login">
+                        <br>
+                        <br>Not a registered user? <a href="/register">Register Now!!</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- JS Links -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/d67c581f6d.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

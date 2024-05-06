@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block 'main' %}
+
+{% load static %}
+<title>Order Confirmation</title>
+<link rel="stylesheet" href="{% static 'assets/css/cartpg.css' %}">
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    td {
+        padding: 8px;
+        border: none;
+        text-align: justify;
+    }
+</style>
+
+<!-- Order Summary -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1><b>Order Summary</b></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Items -->
+            {% for x in data %}
+            <table>
+                <tr>
+                    <!-- Item Image -->
+                    <td>
+                        {% if x.type == 'console' %}
+                        <img src="{{ x.product.pimage.url }}" height="150px" width="150px">
+                        {% else %}
+                        <img src="{{ x.product.gimage.url }}" height="150px" width="150px">
+                        {% endif %}
+                    </td>
+                    <!-- Item Description -->
+                    <td>
+                        {% if x.type == 'console' %}
+                        <h5>{{ x.product.name }}</h5>
+                        <p>{{ x.product.pdetails }}</p>
+                        <p>{{ x.product.total }}</p>
+                        <p>{{ x.product.qty }}</p>
+                        
+                        {% else %}
+                        <h5>{{ x.product.title }}</h5>
+                        <p>{{ x.product.gdetails }}</p>
+                        <p>{{ x.product.qty }}</p>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            {% endfor %}
+        </div>
+        <div class="col-md-4 mt-5 d-flex flex-column">
+            <div class="pricing-info">
+                <p><b>Subtotal:</b> &#8377;{{ total }}</p>
+                <p><b>GST (2%):</b> &#8377;{{ tax }}</p>
+                <p><b>Shipping:</b> &#8377;0.00</p>
+                <hr class="double">
+                <p><b>Total:</b> &#8377;{{ grndtot }}</p>
+                <div class="mt-2 d-flex flex-column align-items-center">
+                <a href="/makepayment">
+                    <button class="btn btn-success">Make Payment</button>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

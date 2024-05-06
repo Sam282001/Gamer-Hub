@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block 'main' %}
+
+{% load static %}
+<title>Cart</title>
+<link rel="stylesheet" href="{% static 'assets\css\cartpg.css' %}">
+
+
+<div class="container-fluid mt-3 d-flex flex-column align-items-center">
+    <h1>Your Cart Seems Empty</h1>
+    <h2>Add Items to your cart!! </h2>
+    <img src="{% static 'assets/images/empcrt.png' %}" width="250px" height="200px">
+</div>
+
+{% endblock 'main' %}

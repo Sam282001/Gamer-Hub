@@ -1,0 +1,230 @@
+{% extends 'base.html'%}
+
+{% block 'main' %}
+<title>Buy PlayStation Games</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/carou.css' %}">
+<!-- carousel -->
+<div class="carousel">
+    <!-- list item -->
+    <div class="list">
+        <!-- Game 1 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/psgcar1.png' %}">
+            <div class="content">
+                <div class="title">Rise of the</div>
+                <div class="topic">RONIN</div>
+                <div class="des">
+                    <!-- lorem 50 -->
+                    Japan, 1863. After three centuries of the Tokugawa Shogunate's oppressive rule, the Black Ships of the West descend upon the nation's borders and the country falls into a state of turmoil.
+                </div>
+                <div class="buttons">
+                    <button class="btn">PS5</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/psgcar2.png' %}">
+            <div class="content">
+            </div>
+        </div>
+
+        <!-- Game 3 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/psgcar3.png' %}">
+            <div class="content">
+                <div class="title">The Last of Us </div>
+                <div class="topic">PART II</div>
+                <div class="des">
+                    Five years later… After a deadly journey across post-pandemic USA, Ellie and Joel settle down in Wyoming. Living in a thriving community gives them stability, despite the threat of the Infected and war.
+                </div>
+                <div class="buttons">
+                    <button class="btn">PS5</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 4 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/psgcar4.png' %}">
+            <div class="content">
+                <div class="title">The Crew</div>
+                <div class="topic" style="color: yellow;">MOTORFEST</div>
+                <div class="des">
+                    Welcome to Motorfest, the ultimate driving experience! Explore the vibrant open world of the island of O'ahu in Hawaii as you compete in intense races, themed events, and much more! With hundreds of iconic cars to collect, you'll have plenty of opportunities to show off your skills.
+                </div>
+                <div class="buttons">
+                    <button class="btn">PS4/PS5</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- list thumnail -->
+    <div class="thumbnail">
+        <!-- Game 1 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/psgcar1.png' %}">
+            <div class="content">
+                <div class="title">
+                    Rise Of The Ronin
+                </div>
+                <div class="description">
+                    PS5
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/psgcar2.png' %}">
+            <div class="content">
+                <div class="title">
+                </div>
+                <div class="description">
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 3  -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/psgcar3.png' %}">
+            <div class="content">
+                <div class="title">
+                    The Last of Us Part II
+                </div>
+                <div class="description">
+                    PS5
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 4 -->
+        <div class="item">
+            <img src="{% static 'assets/images/games/psgcar4.png' %}">
+            <div class="content">
+                <div class="title">
+                    The Crew Motofest
+                </div>
+                <div class="description">
+                    PS4/PS5
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- next prev -->
+
+    <div class="arrows">
+        <button id="prev"><</button>
+        <button id="next">></button>
+    </div>
+    <!-- time running -->
+    <div class="time"></div>
+</div>
+
+<div class="container mt-5">
+    <!-- Favourite Consoles -->
+    <div class="row">
+      <div class="col-md-12 d-flex flex-column">
+        <h1>Gamer's Favourites. <span style="color: blue;">BestSellers.</span></h1>
+      </div>
+    </div>
+  
+    <!-- Cards -->
+    <div class="scrolling-wrapper mt-5">
+      <div class="card-wrapper">
+        {% for x in trgames %}
+        {% if x.pltfrm == 1 %}
+        <!-- Card 1 -->
+        <div class="card">
+          <a href="/gamedets/{{x.id}}" style="text-decoration: none; color: black;">
+            <img src="{{x.gimage.url}}" style="max-width: 100%;" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">&#8377;{{x.price}}</h5>
+            </div>
+          </a>
+          <div class="card-footer">
+            <a href="/gamedets/{{x.id}}" class="btn btn-outline-light btn-dark cust-bg-dark w-100">See Details</a>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+  
+      </div>
+    </div>
+</div>
+
+<!-- All Games Section -->
+<div class="container-fluid ms-3 me-3 mt-5">
+    <!-- All Games -->
+    <div class="row">
+        <div class="col-md-12 d-flex flex-column align-items-center">
+            <h1>All <span style="color: blue;">Games</span></h3>
+        </div>
+    </div>
+    <!-- Filter By Price -->
+    <div class="row">
+        <div class="col-md-12 d-flex flex-column">
+            <h3>Filter By <span style="color: blue;">Price.</span></h3>
+        </div>
+    </div>
+
+    <div class="row" id="filter-section">
+        <form action="/range#filter-section" method="GET">
+            <!-- Min Range -->
+            <div class="col-md-6 fltr">
+                <input type="hidden" name="template" value="psgames.html">
+                <span><label for="input1" class="form-label">Min Value</label></span>
+                <span><input type="number" name="min" class="form-control" id="input1"
+                        placeholder="Enter min amount"></span>
+            </div>
+
+            <!-- Max Range -->
+            <div class="col-md-6 fltr">
+                <label for="input2" class="form-label">Max Value</label>
+                <input type="number" name="max" class="form-control" id="input2" placeholder="Enter max amount">
+            </div>
+
+            <div class="col-md-2 me-0 mt-2 fltr">
+                <input type="submit" class="btn btn-light" name="search" id="search" value="submit">
+            </div>
+        </form>
+
+    </div>
+
+
+    <div class="container d-flex flex-column mt-4 ms-6">
+        <div class="row">
+            {% for x in games %}
+            {% if x.pltfrm == 1 %}
+            <div class="col-md-3">
+                <div class="card" style="width: 16rem; text-align: center;">
+                    <a href="/gamedets/{{x.id}}" style="text-decoration: none; color: black;">
+                        <img src="{{x.gimage.url}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{x.title}}</h5>
+                            <h4>&#8377;{{x.price}}</h4>
+                        </div>
+                    </a>
+                    <div class="card-footer mt-0">
+                        <a href="/gamedets/{{x.id}}" class="btn btn-outline-light btn-dark cust-bg-dark w-100">See Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+    {% if show_reset_button %}
+    <div class="row mt-2">
+        <div class="col-md-12 d-flex flex-column align-items-center">
+            <a href="/psgames#filter-section"><button class="btn btn-light">Reset</button></a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock 'main' %}

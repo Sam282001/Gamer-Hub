@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block 'main' %}
+
+{% load static %}
+<title>Cart</title>
+<link rel="stylesheet" href="{% static 'assets\css\cartpg.css' %}">
+
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <h1>Shopping Cart</h1>
+    </div>
+
+    <div class="row shopping-cart">
+
+        <div class="column-labels">
+            <label class="product-image">Image</label>
+            <label class="product-details">Product</label>
+            <label class="product-price">Price</label>
+            <label class="product-quantity">Quantity</label>
+            <label class="product-removal">Remove</label>
+            <label class="product-line-price">Total</label>
+        </div>
+
+        <!-- Cart Products -->
+        {% for x in data %}
+        <div class="product" style="color: white;">   
+            <!-- IF Product is Console -->
+            {% if x.type == 'console' %}
+            <div class="product-image">
+                <img src="{{ x.item.pimage.url }}" >
+            </div>
+
+            <!-- IF Product is Game -->
+            {% else %}
+            <div class="product-image">
+                <img src="{{ x.item.gimage.url }}" >
+            </div>
+            {% endif %}
+
+            <!-- IF Product is Console -->
+            {% if x.type == 'console' %}
+            <div class="product-details">
+                <div class="product-title" style="font-size: 20px;"><b><u style="color: white;">{{x.item.name }}</u></b></div>
+                <p class="product-description" style="font-size: 13px;">{{ x.item.pdetails }} <br>
+                    {% if x.item.cat == 1 %}
+                    <p class="btn btn-light">PS5</p>
+                    {% elif x.item.cat == 2 %}
+                    <p class="btn btn-success">Xbox</p>
+                    {% elif x.item.cat == 3 %}
+                    <p class="btn btn-danger">Switch</p>
+                    {% else %}
+                    <p class="btn btn-primary">PS4</p>
+                    {% endif %}
+                </p>
+            </div>
+            <!-- IF Product is Game -->
+            {% else %}
+            <div class="product-details">
+                <div class="product-title" style="font-size: 20px;"><b><u>{{x.item.title }}</u></b></div>
+                <p class="product-description" style="font-size: 13px;">{{ x.item.gdetails }} <br>
+                    {% if x.item.pltfrm == 1 %}
+                    <p class="btn btn-primary">PS</p>
+                    {% elif x.item.pltfrm == 2 %}
+                    <p class="btn btn-success">Xbox</p>
+                    {% elif x.item.pltfrm == 3 %}
+                    <p class="btn btn-danger">Switch</p>
+                    {% else %}
+                    <p class="btn btn-light">PC</p>
+                    {% endif %}
+                </p>
+            </div>
+            {% endif %}
+            <!-- End if -->
+
+            <div class="product-price">{{ x.item.price }}</div>
+            <div class="product-quantity">
+                <a href="{% url 'updateqty' '0' x.cart_item_id %}"><button class="btn btn-danger">-</button></a>
+                <input type="number" value="{{x.qty}}" min="1">
+                <a href="{% url 'updateqty' '1' x.cart_item_id %}"><button class="btn btn-success">+</button></a>
+                <!-- {% if messages %}
+                <div class="alert alert-info">
+                        {{ message }}
+                </div>
+                {% endif %} -->
+            </div>
+            <div class="product-removal">
+                <a href="{% url 'remove_item' x.cart_item_id %}">
+                <button class="btn btn-danger">&nbsp;&nbsp;
+                    <i class="fa-regular fa-trash-can"></i>&nbsp;&nbsp;&nbsp;   
+                </button>
+                </a>
+            </div>
+            <div class="product-line-price">{{ x.total }}</div>
+            
+        </div>
+        {% endfor %}
+
+
+
+        <div class="totals">
+            <div class="totals-item">
+                <label>Subtotal</label>
+                <div class="totals-value" id="cart-subtotal">{{ total }}</div>
+            </div>
+            <div class="totals-item">
+                <label>GST(2%)</label>
+                <div class="totals-value" id="cart-tax">{{ tax }}</div>
+            </div>
+            <div class="totals-item">
+                <label>Shipping</label>
+                <div class="totals-value" id="cart-shipping">0.00</div>
+            </div>
+            <div class="totals-item totals-item-total">
+                <label>Grand Total</label>
+                <div class="totals-value" id="cart-total">{{ grndtot }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12 d-flex flex-column align-items-center">
+            <a href="/ordrconfo">
+            <button class="btn btn-success">Checkout</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+<hr />
+{% endblock 'main' %}

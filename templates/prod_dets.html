@@ -1,0 +1,71 @@
+{% extends 'base.html'%}
+
+{% block 'main' %}
+<title>Product Details</title>
+{% load static %}
+
+<!-- If Product Is Console -->
+{% if consoles %}
+<div class="container-fluid">
+    <div class="row mt-5 mx-auto">
+        {% for x in consoles %}
+        <div class="col-md-6 d-flex flex-column align-items-center">
+            <img src="{{ x.pimage.url }}" width="300px" height="400px">
+        </div>
+
+        <div class="col-md-6 pt-3">
+            <p style="background-color: transparent;"><b>Product Name:</b> {{x.name}}</p><br>
+            <p style="background-color: transparent;"><b>Price:</b> {{x.price}}</p><br>
+            <p style="background-color: transparent;"><b>Ratings:</b> 3.5/5</p><br>
+            <p style="background-color: transparent;"><b>Description:</b><br>{{x.pdetails}}
+            </p><br>
+            <a href="{% url 'add_console_to_cart' itid=x.id %}" id="pdbtn" class="btn btn-light">Add to Cart</a>&nbsp;&nbsp;
+            <a href="/cart" id="pdbtn" class="btn btn-light">View Cart</a>&nbsp;&nbsp;
+            <a href="/home" id="pdbtn" class="btn btn-light">Shop More</a>
+            
+            {% if messages %}
+            <div class="alert alert-info mt-4 w-75">
+            {% for message in messages %}
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- If Product is Game -->
+{% else %}
+<div class="container-fluid">
+    <div class="row mt-5 mx-auto">
+        {% for x in games %}
+        <div class="col-md-6 d-flex flex-column align-items-center">
+            <img src="{{ x.gimage.url }}" width="300px" height="400px">
+        </div>
+
+        <div class="col-md-6 pt-3">
+            <p style="background-color: transparent;"><b>Product Name:</b> {{x.title}}</p><br>
+            <p style="background-color: transparent;"><b>Price:</b> {{x.price}}</p><br>
+            <p style="background-color: transparent;"><b>Ratings:</b> 3.5/5</p><br>
+            <p style="background-color: transparent;"><b>Description:</b><br>{{x.gdetails}}
+            </p><br>
+            <a href="{% url 'add_game_to_cart' itid=x.id %}" id="pdbtn" class="btn btn-light">Add to Cart</a>&nbsp;&nbsp;
+            <a href="/cart" id="pdbtn" class="btn btn-light">View Cart</a>&nbsp;&nbsp;
+            <a href="/home" id="pdbtn" class="btn btn-light">Shop More</a>
+
+            {% if messages %}
+            <div class="alert alert-info mt-4 w-75">
+            {% for message in messages %}
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock 'main' %}
