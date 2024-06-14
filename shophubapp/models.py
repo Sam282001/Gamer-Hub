@@ -39,3 +39,35 @@ class Order(models.Model):
     itype = models.CharField(max_length=50)
     itid = models.IntegerField()
     qty = models.IntegerField(default = 1)
+
+class UserDets(models.Model):
+    uid = models.ForeignKey(User, on_delete=models.CASCADE, db_column='uid', default=None)
+    fname = models.CharField(max_length=50)
+    lname = models.CharField(max_length=100)
+    mail = models.CharField(max_length=200)
+    phone = models.CharField(max_length=12)
+    address = models.CharField(max_length=2000)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=6)
+    country = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class UserDetsHistory(models.Model):
+    uid = models.ForeignKey(User, on_delete=models.CASCADE)
+    fname = models.CharField(max_length=100)
+    lname = models.CharField(max_length=100)
+    mail = models.EmailField()
+    phone = models.CharField(max_length=15)
+    pincode = models.CharField(max_length=10)
+    address = models.TextField()
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    
+
+
+

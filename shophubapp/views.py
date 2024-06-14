@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from shophubapp.models import console, game, Cart, Order
+from shophubapp.models import console, game, Cart, Order, UserDets, UserDetsHistory
 import random 
 from django.db.models import Q
 from django.http import HttpResponseBadRequest
@@ -9,6 +9,8 @@ from django.contrib import messages
 import uuid
 import razorpay
 from django.core.mail import send_mail
+from datetime import datetime
+from django.utils import timezone
 
 # Create your views here.
 
@@ -29,6 +31,7 @@ def user_login(request):
             u = authenticate(username=uname, password=upass)
             if u is not None:
                 login(request,u)
+                print(f"The User {uname} with logged in at {datetime.now()}")    #print date and time of login
                 return redirect('/home')
             else:
                 context['errmsg'] = "Invalid Username/Password"
@@ -247,13 +250,35 @@ def remove(request, uid):
         cart_item.delete()
     return redirect('/cart')
 
+#User Details Page
+def udets(request):
+    if request.method == "POST":
+        user = request.user
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['mail']
+        phone = request.POST['phone']
+        pincode = request.POST['pincode']
+        address = request.POST['address']
+        city = request.POST['city']
+        state = request.POST['state']
+        country = request.POST['country']
+
+        print(fname, lname,user)
+
+        s = UserDets.objects.create(uid=user, fname=fname, lname=lname, mail=email, phone=phone, address=address, city=city, state=state, pincode=pincode, country=country, created_at=timezone.now())
+        s.save()
+
+        return redirect('/ordrconfo')
+    else:
+        return render(request, 'udets.html')
+
 # Order Conformation Page
 def ordrconfo(request):
     userid = request.user.id
     citems = Cart.objects.filter(uid = request.user)
     oid = uuid.uuid4()      # Using UUID for a guaranteed unique order_id
     order_items = []
-
     
     for item in citems:
         product = None
@@ -267,19 +292,45 @@ def ordrconfo(request):
             item.delete()      #delete after placing order
             order_items.append({'product': product, 'type': item.itype, 'qty': item.qty})
     
-    print(order_items)
+    # print(order_items)
     orders = Order.objects.filter(order_id= oid)
     s = sum(item['product'].price * item['qty'] for item in order_items)
     tx = s * 0.02
     gt = s + tx
     
+    udts = UserDets.objects.filter(uid = request.user).first()
+
+    if udts:
+            # Save user details to history before deleting
+            UserDetsHistory.objects.create(
+                uid=udts.uid,
+                fname=udts.fname,
+                lname=udts.lname,
+                mail=udts.mail,
+                phone=udts.phone,
+                pincode=udts.pincode,
+                address=udts.address,
+                city=udts.city,
+                state=udts.state,
+                country=udts.country,
+                created_at=udts.created_at,
+            )
+    print(udts)
+    
+
     context = {}
     context['data'] = order_items
     context['total'] = s
     context['tax'] = tx 
     context['grndtot'] = gt 
+    context['udets'] = udts
 
-    return render(request, 'orderconfo.html', context)
+    response = render(request, 'orderconfo.html', context)
+
+    # Delete user details after rendering the template
+    UserDets.objects.filter(uid=request.user).delete()
+    
+    return response
 
 # Filter - price function
 def range(request):
@@ -349,7 +400,7 @@ def makepayment(request):
     
     print('Total Amount: ',s)
  
-    client = razorpay.Client(auth=("user", "key"))
+    client = razorpay.Client(auth=("rzp_test_PJ5uejZu0mXvdX", "IJK1DhzOwZ4087x7xt5i05jq"))
 
     # Create payment order
     data = { "amount": s*100, "currency": "INR", "receipt": ','.join(map(str, order_ids)) }       #s*100 because s in rupees and api requires paise.

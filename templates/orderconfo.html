@@ -15,13 +15,65 @@
         border: none;
         text-align: justify;
     }
+
+    .udtable {
+        margin: auto;
+        width: 50%;
+        border: 1px solid white;
+    }
+
+    .udtable tr {
+        border: 1px solid white;
+    }
+
+    .udtable td {
+        border-right: 1px solid white;
+    }
 </style>
 
 <!-- Order Summary -->
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h1><b>Order Summary</b></h1>
+            <h1><b><u>Order Summary</u></b></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center mt-4">
+            <h3><b>Delivery Address</b></h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <table class="udtable">
+                <tr>
+                    <td>Full Name</td>
+                    <td>{{udets.fname}} {{udets.lname}}</td>
+                </tr>
+
+                <tr>
+                    <td>Email</td>
+                    <td>{{udets.mail}}</td>
+                </tr>
+
+                <tr>
+                    <td>Contact No.</td>
+                    <td>{{udets.phone}}</td>
+                </tr>
+
+                <tr>
+                    <td>Address</td>
+                    <td>{{udets.address}}, {{udets.city}} - {{udets.pincode}}, {{udets.state}}, {{udets.country}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 text-center mt-5">
+            <h3><b>Products</b></h3>
         </div>
     </div>
 

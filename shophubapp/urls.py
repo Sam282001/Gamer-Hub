@@ -14,7 +14,7 @@ urlpatterns = [
     path('xbxgames', views.xbxgames),
     path('pcgames', views.pcgames),
     path('nsgames', views.nsgames),
-    path('login', views.user_login),
+    path('login/', views.user_login),
     path('register', views.register),
     path('cart', views.viewcart),
     path('logout', views.user_logout),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('makepayment', views.makepayment),
     path('sendusermail', views.sendusermail),
     path('search', views.search),
+    path('udets', views.udets),
 ]
 
 if settings.DEBUG:
